@@ -26,6 +26,9 @@ COPY . /var/www/html
 # Install dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Run migrations (will skip if already run)
+RUN php artisan migrate --force || true
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
