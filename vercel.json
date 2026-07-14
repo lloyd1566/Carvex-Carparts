@@ -16,6 +16,7 @@
     "APP_ENV": "production",
     "APP_DEBUG": "false",
     "APP_URL": "https://carvex-carparts.vercel.app",
+    "DB_CONNECTION": "pgsql",
     "CACHE_DRIVER": "file",
     "SESSION_DRIVER": "file",
     "QUEUE_CONNECTION": "sync"
