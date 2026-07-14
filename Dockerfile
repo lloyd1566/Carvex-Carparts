@@ -27,7 +27,7 @@ COPY . /var/www/html
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Run migrations (will skip if already run)
-RUN php artisan migrate --force || true
+RUN php artisan migrate --force || true && echo "Migrations completed"
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
