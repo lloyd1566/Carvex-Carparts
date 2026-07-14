@@ -26,6 +26,9 @@ COPY . /var/www/html
 # Set APP_DEBUG to true for troubleshooting
 RUN sed -i 's/APP_DEBUG=false/APP_DEBUG=true/' /var/www/html/.env 2>/dev/null || echo "APP_DEBUG=true" >> /var/www/html/.env
 
+# Set APP_URL to HTTPS to fix mixed content
+RUN sed -i 's|APP_URL=http://localhost|APP_URL=https://carvex-carparts.onrender.com|' /var/www/html/.env 2>/dev/null || echo "APP_URL=https://carvex-carparts.onrender.com" >> /var/www/html/.env
+
 # Install dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
