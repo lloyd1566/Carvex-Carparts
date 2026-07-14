@@ -23,11 +23,22 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY . /var/www/html
 
-# Set APP_DEBUG to true for troubleshooting
-RUN sed -i 's/APP_DEBUG=false/APP_DEBUG=true/' /var/www/html/.env 2>/dev/null || echo "APP_DEBUG=true" >> /var/www/html/.env
-
-# Set APP_URL to HTTPS to fix mixed content
-RUN sed -i 's|APP_URL=http://localhost|APP_URL=https://carvex-carparts.onrender.com|' /var/www/html/.env 2>/dev/null || echo "APP_URL=https://carvex-carparts.onrender.com" >> /var/www/html/.env
+# Create .env file from Render environment variables
+RUN echo "APP_NAME=Laravel" > /var/www/html/.env && \
+    echo "APP_ENV=${APP_ENV:-production}" >> /var/www/html/.env && \
+    echo "APP_KEY=${APP_KEY}" >> /var/www/html/.env && \
+    echo "APP_DEBUG=${APP_DEBUG:-true}" >> /var/www/html/.env && \
+    echo "APP_URL=${APP_URL:-https://carvex-carparts.onrender.com}" >> /var/www/html/.env && \
+    echo "LOG_CHANNEL=stack" >> /var/www/html/.env && \
+    echo "DB_CONNECTION=${DB_CONNECTION:-pgsql}" >> /var/www/html/.env && \
+    echo "DB_HOST=${DB_HOST}" >> /var/www/html/.env && \
+    echo "DB_PORT=${DB_PORT:-5432}" >> /var/www/html/.env && \
+    echo "DB_DATABASE=${DB_DATABASE}" >> /var/www/html/.env && \
+    echo "DB_USERNAME=${DB_USERNAME}" >> /var/www/html/.env && \
+    echo "DB_PASSWORD=${DB_PASSWORD}" >> /var/www/html/.env && \
+    echo "CACHE_DRIVER=file" >> /var/www/html/.env && \
+    echo "SESSION_DRIVER=file" >> /var/www/html/.env && \
+    echo "QUEUE_CONNECTION=sync" >> /var/www/html/.env
 
 # Install dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
