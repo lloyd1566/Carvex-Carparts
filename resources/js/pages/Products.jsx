@@ -193,10 +193,10 @@ export default function Products() {
 
     if (loading) {
         return (
-            <div className="min-h-screen pt-32 grid place-items-center bg-gradient-to-b from-slate-50 to-slate-100">
-                <div className="text-center bg-white/90 border border-slate-200 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-sm">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 border-4 border-slate-200 border-t-orange-500 rounded-full mx-auto mb-3.5 animate-spin" />
-                    <div className="text-sm sm:text-base text-slate-600 font-semibold tracking-wide">
+            <div style={{ minHeight: '100vh', paddingTop: 120, display: 'grid', placeItems: 'center', background: 'linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)' }}>
+                <div style={{ textAlign: 'center', background: 'rgba(255,255,255,0.82)', border: '1px solid #e2e8f0', borderRadius: 18, padding: '26px 30px', boxShadow: '0 18px 50px rgba(15, 23, 42, 0.08)' }}>
+                    <div style={{ width: 42, height: 42, border: '4px solid #e5e7eb', borderTopColor: '#f97316', borderRadius: '999px', margin: '0 auto 14px' }} />
+                    <div style={{ fontSize: 14, color: '#64748b', fontWeight: 600, letterSpacing: '0.01em' }}>
                         Loading products...
                     </div>
                 </div>
@@ -205,42 +205,68 @@ export default function Products() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 pt-24">
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-                <div className="mb-4 sm:mb-6 flex flex-col gap-2">
-                    <span className="inline-flex self-start px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-extrabold tracking-widest uppercase">
-                        Catalog
-                    </span>
-                    <h1 className="m-0 text-2xl sm:text-3xl lg:text-4xl text-slate-900 font-extrabold tracking-tight">Browse Products</h1>
-                    <p className="m-0 text-slate-600 text-sm sm:text-base">
-                        Showing <strong>{filteredProducts.length}</strong> of <strong>{products.length}</strong> products
-                    </p>
-                </div>
+        <>
+            <style>{`
+                @media (max-width: 1024px) {
+                    .products-layout { grid-template-columns: 1fr !important; }
+                    .products-sidebar { position: static !important; }
+                    .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+                }
+                @media (max-width: 640px) {
+                    .products-grid { grid-template-columns: 1fr !important; }
+                    .products-header h1 { font-size: 24px !important; }
+                    .products-sidebar { padding: 20px !important; }
+                }
+            `}</style>
+            <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%)', paddingTop: 96 }}>
+                <div style={{ width: '100%', maxWidth: 1560, margin: '0 auto', padding: '14px 18px 30px' }}>
+                    <div className="products-header" style={{ marginBottom: 14, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        <span style={{ display: 'inline-flex', alignSelf: 'flex-start', padding: '6px 10px', borderRadius: 999, background: 'rgba(249, 115, 22, 0.12)', color: '#c2410c', fontSize: 12, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                            Catalog
+                        </span>
+                        <h1 style={{ margin: 0, fontSize: 34, lineHeight: 1.1, color: '#0f172a', fontWeight: 800, letterSpacing: '-0.03em' }}>Browse Products</h1>
+                        <p style={{ margin: 0, color: '#64748b', fontSize: 14 }}>
+                            Showing <strong>{filteredProducts.length}</strong> of <strong>{products.length}</strong> products
+                        </p>
+                    </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-4 sm:gap-6 items-start">
-                    <aside className="lg:sticky lg:top-24 w-full h-fit bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 self-start shadow-sm">
-                        <div className="flex justify-between items-center mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-200">
-                            <div className="flex items-center gap-2 text-slate-900 font-black text-base sm:text-lg tracking-tight">
-                                <Filter size={16} color="#f97316" />
+                    <div className="products-layout" style={{ display: 'grid', gridTemplateColumns: '302px minmax(0, 1fr)', gap: 22, alignItems: 'start' }}>
+                        <aside className="products-sidebar" style={{ position: 'sticky', top: 122, width: '100%', height: 'fit-content', background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(14px)', border: '1px solid #e2e8f0', borderRadius: 20, padding: 30, alignSelf: 'start', boxShadow: '0 18px 40px rgba(15, 23, 42, 0.06)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18, paddingBottom: 16, borderBottom: '1px solid #e2e8f0' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#0f172a', fontWeight: 900, fontSize: 18, letterSpacing: '-0.02em' }}>
+                                <Filter size={18} color="#f97316" />
                                 <span>Filters</span>
                             </div>
                             {hasActiveFilters && (
                                 <button
                                     type="button"
                                     onClick={handleResetFilters}
-                                    className="border-none bg-transparent text-orange-600 font-bold cursor-pointer text-xs sm:text-sm"
+                                    style={{ border: 'none', background: 'transparent', color: '#ea580c', fontWeight: 700, cursor: 'pointer', fontSize: 13 }}
                                 >
                                     Clear
                                 </button>
                             )}
                         </div>
 
-                        <section className="mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-slate-100">
-                            <h3 className="m-0 mb-2 sm:mb-3 text-xs sm:text-sm text-slate-700 uppercase tracking-widest font-extrabold">Categories</h3>
+                        <section style={{ marginBottom: 18, paddingBottom: 18, borderBottom: '1px solid #edf2f7' }}>
+                            <h3 style={{ margin: '0 0 10px', fontSize: 13, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800 }}>Categories</h3>
                             <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
-                                className="w-full border border-slate-300 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-slate-800 bg-white appearance-none cursor-pointer"
+                                style={{
+                                    width: '100%',
+                                    border: '1px solid #cbd5e1',
+                                    borderRadius: 12,
+                                    padding: '11px 40px 11px 12px',
+                                    fontSize: 14,
+                                    color: '#1f2937',
+                                    backgroundColor: '#ffffff',
+                                    appearance: 'none',
+                                    backgroundImage: 'linear-gradient(45deg, transparent 50%, #94a3b8 50%), linear-gradient(135deg, #94a3b8 50%, transparent 50%)',
+                                    backgroundPosition: 'calc(100% - 18px) 50%, calc(100% - 12px) 50%',
+                                    backgroundSize: '6px 6px, 6px 6px',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
                             >
                                 <option value="">All categories</option>
                                 {categories.map((cat) => (
@@ -251,12 +277,25 @@ export default function Products() {
                             </select>
                         </section>
 
-                        <section className="mt-4 sm:mt-6">
-                            <h3 className="m-0 mb-2 sm:mb-3 text-xs sm:text-sm text-slate-700 uppercase tracking-widest font-extrabold">Brands</h3>
+                        <section style={{ marginTop: 18 }}>
+                            <h3 style={{ margin: '0 0 10px', fontSize: 13, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 800 }}>Brands</h3>
                             <select
                                 value={selectedBrand}
                                 onChange={(e) => setSelectedBrand(e.target.value)}
-                                className="w-full border border-slate-300 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-slate-800 bg-white appearance-none cursor-pointer"
+                                style={{
+                                    width: '100%',
+                                    border: '1px solid #cbd5e1',
+                                    borderRadius: 12,
+                                    padding: '11px 40px 11px 12px',
+                                    fontSize: 14,
+                                    color: '#1f2937',
+                                    backgroundColor: '#ffffff',
+                                    appearance: 'none',
+                                    backgroundImage: 'linear-gradient(45deg, transparent 50%, #94a3b8 50%), linear-gradient(135deg, #94a3b8 50%, transparent 50%)',
+                                    backgroundPosition: 'calc(100% - 18px) 50%, calc(100% - 12px) 50%',
+                                    backgroundSize: '6px 6px, 6px 6px',
+                                    backgroundRepeat: 'no-repeat',
+                                }}
                             >
                                 <option value="">All brands</option>
                                 {brands.map((brand) => (
@@ -270,12 +309,12 @@ export default function Products() {
 
                     <main>
                         {filteredProducts.length === 0 ? (
-                            <div className="bg-white/95 border border-slate-200 rounded-xl sm:rounded-2xl p-6 sm:p-10 text-center shadow-sm">
-                                <h3 className="m-0 text-slate-900 text-lg sm:text-xl font-bold">No products found</h3>
-                                <p className="m-2 sm:m-3 mt-2 sm:mt-3 text-slate-600 text-sm sm:text-base">Try changing filters or the search term.</p>
+                            <div style={{ background: 'rgba(255,255,255,0.9)', border: '1px solid #e2e8f0', borderRadius: 18, padding: 42, textAlign: 'center', boxShadow: '0 18px 40px rgba(15, 23, 42, 0.06)' }}>
+                                <h3 style={{ margin: 0, color: '#0f172a', fontSize: 20 }}>No products found</h3>
+                                <p style={{ margin: '10px 0 0', color: '#64748b', fontSize: 14 }}>Try changing filters or the search term.</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                            <div className="products-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 22 }}>
                                 {paginatedProducts.map((product) => (
                                     <ProductCard
                                         key={product.id}
@@ -289,17 +328,26 @@ export default function Products() {
                         )}
 
                         {filteredProducts.length > productsPerPage && (
-                            <div className="mt-4 sm:mt-6 flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
+                            <div style={{ marginTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, flexWrap: 'wrap' }}>
                                 <button
                                     type="button"
                                     onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                                     disabled={currentPage === 1}
-                                    className="border border-slate-300 bg-white text-slate-700 font-bold rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed text-sm sm:text-base"
+                                    style={{
+                                        border: '1px solid #cbd5e1',
+                                        background: '#ffffff',
+                                        color: '#334155',
+                                        fontWeight: 700,
+                                        borderRadius: 10,
+                                        padding: '9px 14px',
+                                        cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+                                        opacity: currentPage === 1 ? 0.55 : 1,
+                                    }}
                                 >
                                     Previous
                                 </button>
 
-                                <span className="text-sm sm:text-base text-slate-600 font-bold">
+                                <span style={{ fontSize: 14, color: '#475569', fontWeight: 700 }}>
                                     Page {currentPage} of {totalPages}
                                 </span>
 
@@ -307,7 +355,16 @@ export default function Products() {
                                     type="button"
                                     onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                                     disabled={currentPage === totalPages}
-                                    className="border border-slate-300 bg-white text-slate-700 font-bold rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed text-sm sm:text-base"
+                                    style={{
+                                        border: '1px solid #cbd5e1',
+                                        background: '#ffffff',
+                                        color: '#334155',
+                                        fontWeight: 700,
+                                        borderRadius: 10,
+                                        padding: '9px 14px',
+                                        cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+                                        opacity: currentPage === totalPages ? 0.55 : 1,
+                                    }}
                                 >
                                     Next
                                 </button>
@@ -317,6 +374,7 @@ export default function Products() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 
@@ -334,16 +392,34 @@ function ProductCard({ product, onAddToCart, isAdding, isAdded }) {
 
     return (
         <div
-            className="block bg-white border border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden text-inherit shadow-sm transition-all duration-300 relative group"
+            style={{
+                display: 'block',
+                background: '#ffffff',
+                border: '1px solid #e5e7eb',
+                borderRadius: 16,
+                overflow: 'hidden',
+                textDecoration: 'none',
+                color: 'inherit',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                position: 'relative',
+            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="relative w-full h-48 sm:h-60 bg-slate-50 overflow-hidden">
+            <div style={{ position: 'relative', width: '100%', height: 240, background: '#f9fafb', overflow: 'hidden' }}>
                 {!imageError ? (
                     <img
                         src={imageSrc}
                         alt={product.name}
-                        className="w-full h-full object-contain p-4 sm:p-5 transition-transform duration-300 group-hover:scale-105"
+                        style={{ 
+                            width: '100%', 
+                            height: '100%', 
+                            objectFit: 'contain', 
+                            padding: 20,
+                            transition: 'transform 0.3s ease',
+                            transform: isHovered ? 'scale(1.05)' : 'scale(1)'
+                        }}
                         onError={(event) => {
                             if (event.currentTarget.dataset.fallbackApplied === '1') {
                                 setImageError(true);
@@ -354,7 +430,7 @@ function ProductCard({ product, onAddToCart, isAdding, isAdded }) {
                         }}
                     />
                 ) : (
-                    <div className="w-full h-full grid place-items-center text-slate-300">
+                    <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: '#d1d5db' }}>
                         <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -362,22 +438,33 @@ function ProductCard({ product, onAddToCart, isAdding, isAdded }) {
                 )}
 
                 {product.stock === 0 && (
-                    <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+                    <div style={{ position: 'absolute', top: 12, left: 12, background: '#dc2626', color: '#fff', fontSize: 11, fontWeight: 600, padding: '4px 10px', borderRadius: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         Out of Stock
                     </div>
                 )}
                 {product.stock > 0 && product.stock < 10 && (
-                    <div className="absolute top-3 left-3 bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+                    <div style={{ position: 'absolute', top: 12, left: 12, background: '#f97316', color: '#fff', fontSize: 11, fontWeight: 600, padding: '4px 10px', borderRadius: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         Low Stock
                     </div>
                 )}
                 
-                <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-lg p-1.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    <div className="flex gap-0.5">
+                <div style={{ 
+                    position: 'absolute', 
+                    top: 12, 
+                    right: 12, 
+                    background: 'rgba(255, 255, 255, 0.95)', 
+                    backdropFilter: 'blur(8px)',
+                    borderRadius: 8,
+                    padding: 6,
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    opacity: isHovered ? 1 : 0,
+                    transition: 'opacity 0.2s ease'
+                }}>
+                    <div style={{ display: 'flex', gap: 2 }}>
                         {[...Array(5)].map((_, i) => (
                             <Star
                                 key={i}
-                                size={12}
+                                size={14}
                                 color="#fbbf24"
                                 fill={i < 4 ? "#fbbf24" : "none"}
                             />
@@ -386,27 +473,38 @@ function ProductCard({ product, onAddToCart, isAdding, isAdded }) {
                 </div>
             </div>
 
-            <div className="p-4 sm:p-5">
-                <div className="mb-2">
-                    <span className="text-xs text-slate-500 font-medium uppercase tracking-wider">
+            <div style={{ padding: 20 }}>
+                <div style={{ marginBottom: 8 }}>
+                    <span style={{ fontSize: 11, color: '#6b7280', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                         {product.brand}
                     </span>
                 </div>
                 
-                <h3 className="m-0 text-sm sm:text-base text-slate-900 font-semibold leading-relaxed min-h-[2.8rem] line-clamp-2 overflow-hidden">
+                <h3 style={{ 
+                    margin: 0, 
+                    fontSize: 15, 
+                    color: '#111827', 
+                    fontWeight: 600, 
+                    lineHeight: 1.4, 
+                    minHeight: 42,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden'
+                }}>
                     {product.name}
                 </h3>
 
                 {product.sku && (
-                    <p className="m-2 mt-2 text-xs text-slate-400 font-mono">SKU: {product.sku}</p>
+                    <p style={{ margin: '8px 0 0', fontSize: 12, color: '#9ca3af', fontFamily: 'monospace' }}>SKU: {product.sku}</p>
                 )}
 
-                <div className="flex items-center justify-between my-4">
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '16px 0' }}>
                     <div>
-                        <p className="m-0 text-lg sm:text-xl text-slate-900 font-extrabold tracking-tight">
+                        <p style={{ margin: 0, fontSize: 22, color: '#111827', fontWeight: 700, letterSpacing: '-0.02em' }}>
                             ₱{Number(product.price || 0).toFixed(2)}
                         </p>
-                        <span className={`text-xs font-medium ${product.stock > 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                        <span style={{ fontSize: 12, color: product.stock > 0 ? '#059669' : '#dc2626', fontWeight: 500 }}>
                             {product.stock > 0 ? `${product.stock} in stock` : 'Unavailable'}
                         </span>
                     </div>
@@ -416,13 +514,25 @@ function ProductCard({ product, onAddToCart, isAdding, isAdded }) {
                     type="button"
                     disabled={product.stock === 0 || isAdding}
                     onClick={(event) => onAddToCart(event, product)}
-                    className={`w-full border-none text-white font-semibold text-sm sm:text-base rounded-lg sm:rounded-xl py-3 cursor-pointer transition-all duration-200 ${
-                        product.stock === 0 
-                            ? 'bg-slate-200 cursor-not-allowed' 
+                    style={{
+                        width: '100%',
+                        border: 'none',
+                        background: product.stock === 0 
+                            ? '#e5e7eb' 
                             : isAdded 
-                                ? 'bg-emerald-600' 
-                                : 'bg-orange-500 hover:bg-orange-600'
-                    } ${product.stock > 0 ? 'shadow-lg shadow-orange-500/30' : ''}`}
+                                ? '#059669' 
+                                : isHovered 
+                                    ? '#ea580c' 
+                                    : '#f97316',
+                        color: '#ffffff',
+                        fontWeight: 600,
+                        fontSize: 14,
+                        borderRadius: 10,
+                        padding: '12px',
+                        cursor: product.stock === 0 || isAdding ? 'not-allowed' : 'pointer',
+                        transition: 'all 0.2s ease',
+                        boxShadow: product.stock === 0 ? 'none' : '0 4px 12px rgba(249, 115, 22, 0.3)',
+                    }}
                 >
                     {isAdding ? 'Adding...' : isAdded ? '✓ Added' : 'Add to Cart'}
                 </button>
