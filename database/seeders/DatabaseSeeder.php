@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Category::create($category);
+            Category::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
         // Create products
@@ -108,8 +108,11 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($products as $product) {
-            Product::create($product);
+            Product::updateOrCreate(['slug' => $product['slug']], $product);
         }
+
+        // Run product images seeder to update any products without images
+        $this->call(ProductImagesSeeder::class);
     }
 }
 
