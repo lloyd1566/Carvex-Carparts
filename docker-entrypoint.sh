@@ -20,5 +20,8 @@ echo "QUEUE_CONNECTION=sync" >> /var/www/html/.env
 # Run migrations
 php artisan migrate --force || true
 
+# Seed database
+php artisan db:seed --force || true
+
 # Start Apache
 apache2-foreground
