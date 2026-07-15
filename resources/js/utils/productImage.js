@@ -1,4 +1,4 @@
-export const FALLBACK_PRODUCT_IMAGE = '/images/carvex.png';
+export const FALLBACK_PRODUCT_IMAGE = '/images/Robots-automobile-assembly-line-Russia.webp';
 
 const IMAGE_OBJECT_KEYS = ['url', 'path', 'src', 'image', 'image_url'];
 
