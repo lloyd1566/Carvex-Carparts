@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libpq-dev \
     zip \
-    unzip
+    unzip \
+    nodejs \
+    npm
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
@@ -29,6 +31,9 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Install dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Install npm dependencies and build assets
+RUN npm install && npm run production
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \

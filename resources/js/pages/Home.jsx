@@ -28,22 +28,29 @@ export default function Home() {
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-12">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-amber-500/10" />
                 
+                {/* Animated background elements */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500/20 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-amber-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-400/10 rounded-full blur-3xl animate-pulse delay-500" />
+                </div>
+                
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 text-center">
-                    <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                    <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight animate-fade-in">
                         Upgrade Your Ride
                     </h1>
-                    <p className="text-lg sm:text-xl text-slate-300 mb-8 sm:mb-12 max-w-2xl mx-auto">
+                    <p className="text-lg sm:text-xl text-slate-300 mb-8 sm:mb-12 max-w-2xl mx-auto animate-fade-in delay-200">
                         Premium auto parts and accessories for every vehicle. Choose quality, choose performance, choose CarVex.
                     </p>
                     
-                    <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
+                    <div className="flex gap-3 sm:gap-4 justify-center flex-wrap animate-fade-in delay-400">
                         <Link
                             to="/products"
-                            className="px-6 sm:px-8 py-3 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors"
+                            className="px-6 sm:px-8 py-3 sm:py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all hover:scale-105 hover:shadow-lg hover:shadow-orange-500/50"
                         >
                             Shop Now
                         </Link>
-                        <button className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg transition-colors">
+                        <button className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-orange-500 text-orange-500 hover:bg-orange-500/10 font-semibold rounded-lg transition-all hover:scale-105">
                             Learn More
                         </button>
                     </div>
